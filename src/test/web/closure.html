@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闭包</title>
+</head>
+<script>
+    var name = "Window";
+    var obj = {
+        name : "Object",
+        getName : function () {
+            var that = this;
+            return function () {
+                alert(typeof(that));
+                alert(typeof(this));
+                return that.name + " - " + this.name;
+            }
+        }
+    };
+    var func = obj.getName();
+    alert(func());
+
+</script>
+<body>
+
+</body>
+</html>
