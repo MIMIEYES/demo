@@ -10,6 +10,9 @@ public class InnerClassSingleton {
     private InnerClassSingleton() {}
 
     public InnerClassSingleton getInstance() {
+
+        System.currentTimeMillis();
         return SingletonObject.INNER_CLASS_SINGLETON;
+
     }
 }
