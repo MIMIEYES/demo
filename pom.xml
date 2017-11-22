@@ -84,6 +84,24 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.esotericsoftware</groupId>
+			<artifactId>reflectasm</artifactId>
+			<version>1.11.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springside</groupId>
+			<artifactId>springside-utils</artifactId>
+			<version>5.0.0-RC1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>5.5.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.5.6</version>
@@ -133,7 +151,12 @@
 			<artifactId>zkclient</artifactId>
 			<version>0.1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.1</version>
+			<scope>test</scope>
+		</dependency>
 
 
 	</dependencies>

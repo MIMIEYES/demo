@@ -67,6 +67,7 @@ public class StreamTest {
         lists.add(Arrays.asList("boss", "dig", "qq", "vivo"));
         lists.add(Arrays.asList("c#", "biezhi"));
     }
+
     static void demo5() {
 
         // 此处 Lamdba表达式 Function<T, R> == Function<Collection, Stream>
@@ -87,6 +88,6 @@ public class StreamTest {
     }
 
     public static void main(String[] args) throws IOException {
-        demo5();
+        demo4();
     }
 }
