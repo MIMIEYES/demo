@@ -10,6 +10,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -20,10 +21,7 @@ import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
 
 import javax.net.ssl.SSLContext;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -160,6 +158,8 @@ public class HttpClientTest {
         UrlEncodedFormEntity uefEntity;
         try {
             uefEntity = new UrlEncodedFormEntity(formparams, "UTF-8");
+            String xml = "";
+            //HttpEntity entity = new InputStreamEntity(new ByteArrayInputStream(xml.getBytes("utf-8")) );
             httppost.setEntity(uefEntity);
             System.out.println("executing request " + httppost.getURI());
             CloseableHttpResponse response = httpclient.execute(httppost);
