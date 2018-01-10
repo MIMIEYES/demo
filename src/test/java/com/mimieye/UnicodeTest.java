@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 public class UnicodeTest {
     public static void main(String[] args) {
         System.out.println(Integer.toHexString('羅'));
+        System.out.println(string2Unicode("羅"));
 
     }
     public static String string2Unicode(String string) {
