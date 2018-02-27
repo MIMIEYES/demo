@@ -12,4 +12,3 @@ public class StringBuilderTest {
         System.out.println(sb.toString());
     }
 }
-// \(public\|private\|protect\|static\|void\)\(\s\+\w\+\)\+

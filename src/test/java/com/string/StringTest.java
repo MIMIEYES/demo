@@ -27,11 +27,6 @@ public class StringTest {
             }
             System.out.println("输入数据：" + str);
         }
-
-
-
-
-
     }
 
 }

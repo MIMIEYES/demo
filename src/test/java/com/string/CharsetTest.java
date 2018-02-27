@@ -21,5 +21,6 @@ public class CharsetTest {
         System.out.println(a3);
         String a4 = new String(a3.getBytes("ISO-8859-1"), "GBK");
         System.out.println(a4);
+
     }
 }

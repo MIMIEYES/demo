@@ -11,11 +11,15 @@ public class StringEscapeTest {
         String a0 = "&lt;xml&gt;asd&lt;/xml&gt;";
         String result = StringEscapeUtils.unescapeHtml(a0);
         System.out.println(result);
+        System.out.println();
         result = StringEscapeUtils.unescapeJava(a0);
         System.out.println(result);
+        System.out.println();
         result = StringEscapeUtils.unescapeXml(a0);
         System.out.println(result);
+        System.out.println();
         result = StringEscapeUtils.unescapeJavaScript(a0);
         System.out.println(result);
+        System.out.println();
     }
 }

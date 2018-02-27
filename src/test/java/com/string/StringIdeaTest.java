@@ -12,6 +12,7 @@ public class StringIdeaTest implements RunInterface {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            
         }
     }
 }
