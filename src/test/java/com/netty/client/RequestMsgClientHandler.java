@@ -1,36 +1,45 @@
 package com.netty.client;
 
+import com.netty.common.CommonUtil;
+import com.netty.common.ThreadPool;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.socket.SocketChannel;
+
+import java.io.UnsupportedEncodingException;
+
+import static com.netty.common.CommonUtil.closeClient;
 
 /**
  * Created by Pierreluo on 2017/12/6.
  */
 public class RequestMsgClientHandler extends ChannelInboundHandlerAdapter {
-    private String msg = "hello java world";
-
-    public RequestMsgClientHandler(){}
-    public RequestMsgClientHandler(String msg){this.msg = msg;}
-
-
     @Override
-    public void channelActive(ChannelHandlerContext ctx) {
-        ctx.writeAndFlush(msg);
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("服务端连接关闭.");
+        closeClient();
     }
 
-
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        System.out.println(msg);
-        //        ctx.write(msg);
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws UnsupportedEncodingException {
+        // 收到server回复的消息
+        System.out.print("receive server msg: ");
+        ByteBuf buf = (ByteBuf) msg;
+        byte[] bytes = new byte[buf.readableBytes()];
+        buf.readBytes(bytes);
+        String resp = new String(bytes, "UTF-8");
+        System.out.println(resp);
+        buf.release();
 
+        // 异步处理服务端消息
+        ThreadPool.addTask(CommonUtil.socketChannel, resp);
     }
 
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
         ctx.flush();
-        //ctx.close();
     }
 
 

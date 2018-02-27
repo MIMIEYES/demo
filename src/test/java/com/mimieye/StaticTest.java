@@ -13,6 +13,7 @@ public class StaticTest {
        int[] b1 = new int[2048*1024];
        int[] c1 = new int[2048*1024];
        int[] d1 = new int[2048*1024];
+       System.out.println(InterfaceTest.test);
 //        a=null;
 //        b=null;
 //        c=null;

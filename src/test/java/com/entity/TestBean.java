@@ -30,4 +30,11 @@ public class TestBean {
         this.cmtcod = cmtcod;
     }
 
+    private void testm() {
+        System.out.println("testm");
+    }
+
+    private static void tests() {
+        System.out.println("tests");
+    }
 }

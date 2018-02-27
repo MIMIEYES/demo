@@ -42,4 +42,9 @@ public class Temp {
         //System.out.println(temp1.getBody().getAcctName());
 
     }
+
+    public synchronized void test1() {
+        test2();
+    }
+    public synchronized void test2() {}
 }

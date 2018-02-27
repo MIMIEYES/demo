@@ -5,8 +5,15 @@ package com.math.shifting;
  */
 public class ShiftingTest {
     public static void main(String[] args) {
-        int length = 234;
-        int a = (length << 1);
+        int length = -234;
+        int a = (length >>> 1);
         System.out.println(a);
+        a = (a >> 1);
+        System.out.println(a);
+
+        int b = 240;//
+        int c = 5;
+        int d = b|c;
+        System.out.println(d);
     }
 }

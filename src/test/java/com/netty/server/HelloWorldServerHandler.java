@@ -1,9 +1,15 @@
 package com.netty.server;
 
-import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFutureListener;
+import com.netty.common.GatewayService;
+import com.netty.common.ThreadPool;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.socket.SocketChannel;
+
+import java.io.UnsupportedEncodingException;
+
+import static com.netty.common.CommonUtil.closeServer;
 
 /**
  * Created by Pierreluo on 2017/12/6.
@@ -11,23 +17,37 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 public class HelloWorldServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        System.out.println("server start to write msg.");
-        ctx.write(msg);
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        String uuid = ctx.channel().id().asLongText();
+        System.out.println("客户端连接关闭.ID: " + uuid);
+        GatewayService.removeGatewayChannel(uuid);
     }
 
     @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) {
-        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER)
-                .addListener(ChannelFutureListener.CLOSE);
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws UnsupportedEncodingException {
+        System.out.print("receive client msg:");
+        ByteBuf buf = (ByteBuf) msg;
+        byte[] bytes = new byte[buf.readableBytes()];
+        buf.readBytes(bytes);
+        String strMsg = new String(bytes, "UTF-8");
+        System.out.println(strMsg);
+        buf.release();
+
+        // 异步处理客户端消息
+        String uuid = ctx.channel().id().asLongText();
+        SocketChannel socketChannel = GatewayService.getGatewayChannel(uuid);
+
+        ThreadPool.addTask(socketChannel, strMsg);
+
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        // Close the connection when an exception is raised.
-        cause.printStackTrace();
-        ctx.close();
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        String uuid = ctx.channel().id().asLongText();
+        GatewayService.addGatewayChannel(uuid, (SocketChannel)ctx.channel());
+        System.out.println("a new connect come in: " + uuid);
     }
+
 }
 
 

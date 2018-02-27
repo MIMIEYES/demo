@@ -4,6 +4,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
@@ -28,12 +29,9 @@ public class MyChannelInitializer<T extends ChannelInboundHandlerAdapter> extend
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline p = socketChannel.pipeline();
-        p.addLast(new LoggingHandler(LogLevel.DEBUG));
-        p.addLast("encoder0",new LengthFieldPrepender(8,false));
+        p.addLast("decoder",new LengthFieldBasedFrameDecoder(1024 * 1024, 0, 8, 0, 8));
+        p.addLast("encoder0",new LengthFieldPrepender(8, false));
         p.addLast("encoder1",new StringEncoder(Charset.forName("UTF-8")));
-        p.addLast(
-                //new ObjectEncoder(),
-                //new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
-                t);
+        p.addLast(t);
     }
 }
