@@ -26,7 +26,6 @@ public class StringTest {
                 break;
             }
             System.out.println("输入数据：" + str);
-
         }
 
 
